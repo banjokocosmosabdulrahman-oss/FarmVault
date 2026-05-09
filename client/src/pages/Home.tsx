@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Loader2, MessageCircle, Phone, Mail, Facebook, Instagram, Twitter, ShoppingBasket } from "lucide-react";
+import { Loader2, MessageCircle, Phone, Mail, ShoppingBasket } from "lucide-react";
 import { useLocation } from "wouter";
 import type { Product } from "../../../drizzle/schema";
 
@@ -159,20 +159,18 @@ export default function Home() {
             </a>
 
             <a
-              href="https://m.me/farmvault"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:banjokocosmosabdurahaman@gmail.com"
               className="flex-1 p-6 bg-white/10 rounded-lg hover:bg-white/20 transition hover:scale-105"
             >
-              <MessageCircle size={40} className="mx-auto mb-3" />
-              <h3 className="text-xl font-bold mb-2">Messenger</h3>
-              <p className="text-sm opacity-90">Connect via Facebook Messenger for detailed product information</p>
+              <Mail size={40} className="mx-auto mb-3" />
+              <h3 className="text-xl font-bold mb-2">Email</h3>
+              <p className="text-sm opacity-90">Send us an email for inquiries and custom orders</p>
             </a>
           </div>
 
           <p className="text-sm opacity-80">
-            <Phone size={16} className="inline mr-2" /> +234 801 234 5678 |{" "}
-            <Mail size={16} className="inline mx-2" /> hello@farmvault.ng
+            <Phone size={16} className="inline mr-2" /> +2348168967790 |
+            <Mail size={16} className="inline mx-2" /> banjokocosmosabdurahaman@gmail.com
           </p>
         </div>
       </section>
@@ -180,15 +178,12 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-[#5d4037] text-white py-8 px-[5%]">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex gap-4">
-            <a href="https://facebook.com/farmvault" target="_blank" rel="noopener noreferrer" className="hover:text-[#ffb300] transition">
-              <Facebook size={24} />
+          <div className="flex gap-6 text-sm">
+            <a href="tel:+2348168967790" className="hover:text-[#ffb300] transition flex items-center gap-2">
+              <Phone size={18} /> +2348168967790
             </a>
-            <a href="https://instagram.com/farmvault" target="_blank" rel="noopener noreferrer" className="hover:text-[#ffb300] transition">
-              <Instagram size={24} />
-            </a>
-            <a href="https://twitter.com/farmvault" target="_blank" rel="noopener noreferrer" className="hover:text-[#ffb300] transition">
-              <Twitter size={24} />
+            <a href="mailto:banjokocosmosabdurahaman@gmail.com" className="hover:text-[#ffb300] transition flex items-center gap-2">
+              <Mail size={18} /> banjokocosmosabdurahaman@gmail.com
             </a>
           </div>
           <p className="text-center md:text-right text-sm opacity-80">

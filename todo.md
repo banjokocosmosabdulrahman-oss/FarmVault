@@ -51,5 +51,13 @@
 - [x] Verify database operations (CRUD)
 
 ## Deployment
-- [ ] Create checkpoint before delivery
-- [ ] Verify all features working in production
+- [x] Create checkpoint before delivery
+- [x] Verify all features working in production
+
+## Contact Information Updates
+- [x] Remove Facebook Messenger link from contact section
+- [x] Remove Twitter link from footer
+- [x] Remove Instagram link from footer
+- [x] Add email link (banjokocosmosabdurahaman@gmail.com) to contact section
+- [x] Add phone number (+2348168967790) to contact section
+- [x] Update footer with email and phone instead of social media
