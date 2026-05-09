@@ -99,12 +99,20 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
               {products.map((product) => (
                 <Card key={product.id} className="overflow-hidden hover:shadow-xl hover:-translate-y-2 transition">
-                  <div className="h-48 bg-gray-200 overflow-hidden">
-                    <img
-                      src={product.imageUrl}
-                      alt={product.name}
-                      className="w-full h-full object-cover hover:scale-105 transition"
-                    />
+                  <div className="h-48 bg-gray-200 overflow-hidden flex items-center justify-center">
+                    {product.imageUrl ? (
+                      <img
+                        src={product.imageUrl}
+                        alt={product.name}
+                        className="w-full h-full object-cover hover:scale-105 transition"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.parentElement!.innerHTML = '<div class="text-gray-400 text-center">Image not available</div>';
+                        }}
+                      />
+                    ) : (
+                      <div className="text-gray-400 text-center">No image</div>
+                    )}
                   </div>
                   <div className="p-6">
                     <h3 className="text-2xl font-bold text-[#2d7d32] mb-2">{product.name}</h3>
