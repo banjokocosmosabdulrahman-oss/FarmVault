@@ -61,3 +61,7 @@
 - [x] Add email link (banjokocosmosabdurahaman@gmail.com) to contact section
 - [x] Add phone number (+2348168967790) to contact section
 - [x] Update footer with email and phone instead of social media
+
+## Bug Fixes
+- [x] Remove duplicate test rice product from database
+- [x] Fix product images not displaying on landing page
