@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, products, orders, Product, Order, InsertProduct, InsertOrder } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,154 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// ===== PRODUCTS QUERIES =====
+
+export async function getAllProducts(): Promise<Product[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get products: database not available");
+    return [];
+  }
+
+  try {
+    return await db.select().from(products);
+  } catch (error) {
+    console.error("[Database] Failed to get products:", error);
+    return [];
+  }
+}
+
+export async function getProductById(id: number): Promise<Product | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get product: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.select().from(products).where(eq(products.id, id)).limit(1);
+    return result.length > 0 ? result[0] : undefined;
+  } catch (error) {
+    console.error("[Database] Failed to get product:", error);
+    return undefined;
+  }
+}
+
+export async function createProduct(product: InsertProduct): Promise<Product | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create product: database not available");
+    return null;
+  }
+
+  try {
+    const result = await db.insert(products).values(product);
+    const id = result[0].insertId as number;
+    const created = await getProductById(id);
+    return created ?? null;
+  } catch (error) {
+    console.error("[Database] Failed to create product:", error);
+    return null;
+  }
+}
+
+export async function updateProduct(id: number, updates: Partial<InsertProduct>): Promise<Product | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update product: database not available");
+    return null;
+  }
+
+  try {
+    await db.update(products).set(updates).where(eq(products.id, id));
+    const updated = await getProductById(id);
+    return updated ?? null;
+  } catch (error) {
+    console.error("[Database] Failed to update product:", error);
+    return null;
+  }
+}
+
+export async function deleteProduct(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete product: database not available");
+    return false;
+  }
+
+  try {
+    await db.delete(products).where(eq(products.id, id));
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to delete product:", error);
+    return false;
+  }
+}
+
+// ===== ORDERS QUERIES =====
+
+export async function getAllOrders(): Promise<Order[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get orders: database not available");
+    return [];
+  }
+
+  try {
+    return await db.select().from(orders);
+  } catch (error) {
+    console.error("[Database] Failed to get orders:", error);
+    return [];
+  }
+}
+
+export async function getOrderById(id: number): Promise<Order | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get order: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.select().from(orders).where(eq(orders.id, id)).limit(1);
+    return result.length > 0 ? result[0] : undefined;
+  } catch (error) {
+    console.error("[Database] Failed to get order:", error);
+    return undefined;
+  }
+}
+
+export async function createOrder(order: InsertOrder): Promise<Order | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create order: database not available");
+    return null;
+  }
+
+  try {
+    const result = await db.insert(orders).values(order);
+    const id = result[0].insertId as number;
+    const created = await getOrderById(id);
+    return created ?? null;
+  } catch (error) {
+    console.error("[Database] Failed to create order:", error);
+    return null;
+  }
+}
+
+export async function updateOrderStatus(id: number, status: "pending" | "confirmed" | "delivered"): Promise<Order | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update order: database not available");
+    return null;
+  }
+
+  try {
+    await db.update(orders).set({ status }).where(eq(orders.id, id));
+    const updated = await getOrderById(id);
+    return updated ?? null;
+  } catch (error) {
+    console.error("[Database] Failed to update order status:", error);
+    return null;
+  }
+}

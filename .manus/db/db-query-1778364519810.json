@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO products (name, description, price, unit, imageUrl, stock, createdAt, updatedAt) VALUES\n('Ofada Rice', 'Authentic, stone-free Ofada rice straight from the farm. Known for its unique aroma and rich flavor, this indigenous Nigerian rice is perfect for your special occasions and everyday meals. Carefully processed and packaged to retain its natural goodness.', '4000.00', 'kg', '/manus-storage/1dsrDTPFvSTy_0ac63718.webp', 150, NOW(), NOW()),\n('Freshly Made Garri', 'Crispy, authentic garri processed under hygienic conditions. Available in white and yellow varieties. Perfect for eba or soaking. Made from select cassava varieties and fried to perfection for that signature crunch and sour taste.', '500.00', 'cup', '/manus-storage/oN9HuAmxq4nA_ea88ee50.jpg', 200, NOW(), NOW());",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3UeRxstiES4xKDc.root --database nCppAu7MjDPgSXW3LsnJg2 --execute INSERT INTO products (name, description, price, unit, imageUrl, stock, createdAt, updatedAt) VALUES\n('Ofada Rice', 'Authentic, stone-free Ofada rice straight from the farm. Known for its unique aroma and rich flavor, this indigenous Nigerian rice is perfect for your special occasions and everyday meals. Carefully processed and packaged to retain its natural goodness.', '4000.00', 'kg', '/manus-storage/1dsrDTPFvSTy_0ac63718.webp', 150, NOW(), NOW()),\n('Freshly Made Garri', 'Crispy, authentic garri processed under hygienic conditions. Available in white and yellow varieties. Perfect for eba or soaking. Made from select cassava varieties and fried to perfection for that signature crunch and sour taste.', '500.00', 'cup', '/manus-storage/oN9HuAmxq4nA_ea88ee50.jpg', 200, NOW(), NOW());",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 591
+}
