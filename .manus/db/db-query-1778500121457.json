@@ -1,0 +1,30 @@
+{
+  "query": "SELECT id, name FROM products ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3UeRxstiES4xKDc.root --database nCppAu7MjDPgSXW3LsnJg2 --execute SELECT id, name FROM products ORDER BY id;",
+  "rows": [
+    {
+      "id": "3",
+      "name": "Ofada Rice"
+    },
+    {
+      "id": "4",
+      "name": "Freshly Made Garri"
+    },
+    {
+      "id": "60001",
+      "name": "Test Rice"
+    },
+    {
+      "id": "90001",
+      "name": "Test Rice"
+    },
+    {
+      "id": "90002",
+      "name": "Test Rice"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\n3\tOfada Rice\n4\tFreshly Made Garri\n60001\tTest Rice\n90001\tTest Rice\n90002\tTest Rice\n",
+  "stderr": "",
+  "execution_time_ms": 719
+}
