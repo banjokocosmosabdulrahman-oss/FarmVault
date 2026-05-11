@@ -13,7 +13,7 @@ const testimonials: Testimonial[] = [
   {
     name: "Adekunle Okafor",
     role: "Home Chef",
-    content: "The Ofada Rice from Farm Vault is absolutely premium quality! My jollof rice turned out perfectly. Highly recommended!",
+    content: "The Ofada Rice from Farm Vault is absolutely premium quality! Perfect for traditional rice dishes and soups. Highly recommended!",
     rating: 5,
     avatar: "🧑‍🍳",
   },
