@@ -95,14 +95,14 @@ export default function Order() {
 
   if (orderSuccess) {
     return (
-      <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center px-4">
-        <Card className="max-w-md w-full p-8 text-center">
-          <CheckCircle size={64} className="mx-auto mb-4 text-green-500" />
-          <h1 className="text-3xl font-bold text-[#2d7d32] mb-2">Order Submitted!</h1>
-          <p className="text-gray-600 mb-6">
+      <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center px-4 py-8">
+        <Card className="max-w-md w-full p-6 md:p-8 text-center">
+          <CheckCircle size={48} className="mx-auto mb-4 text-green-500" />
+          <h1 className="text-2xl md:text-3xl font-bold text-[#2d7d32] mb-2">Order Submitted!</h1>
+          <p className="text-sm md:text-base text-gray-600 mb-6">
             Thank you for your order. We'll contact you shortly at {customerPhone} to confirm your order and arrange delivery.
           </p>
-          <Button onClick={() => setLocation("/")} className="w-full bg-[#2d7d32] hover:bg-[#1b5e20]">
+          <Button onClick={() => setLocation("/")} className="w-full bg-[#2d7d32] hover:bg-[#1b5e20] text-sm md:text-base py-2 md:py-3">
             Back to Home
           </Button>
         </Card>
@@ -111,22 +111,22 @@ export default function Order() {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] py-20 px-4">
+    <div className="min-h-screen bg-[#faf8f5] py-12 md:py-20 px-4">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <button
             onClick={() => setLocation("/")}
-            className="flex items-center gap-2 text-[#2d7d32] font-semibold hover:text-[#f57c00] transition mb-4"
+            className="flex items-center gap-2 text-[#2d7d32] font-semibold hover:text-[#f57c00] transition mb-3 md:mb-4 text-sm md:text-base"
           >
-            <ArrowLeft size={20} /> Back to Home
+            <ArrowLeft size={18} /> Back to Home
           </button>
-          <h1 className="text-4xl font-black text-[#2d7d32]">Place Your Order</h1>
-          <p className="text-gray-600 mt-2">Fill in the form below to order your farm-fresh produce</p>
+          <h1 className="text-2xl md:text-4xl font-black text-[#2d7d32]">Place Your Order</h1>
+          <p className="text-sm md:text-base text-gray-600 mt-2">Fill in the form below to order your farm-fresh produce</p>
         </div>
 
         {/* Order Form */}
-        <Card className="p-8 shadow-lg">
+        <Card className="p-4 md:p-8 shadow-lg">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Product Selection */}
             <div>
@@ -150,11 +150,11 @@ export default function Order() {
 
             {/* Product Details */}
             {selectedProduct && (
-              <div className="bg-[#f5f5f5] p-4 rounded-lg border-l-4 border-[#f57c00]">
-                <p className="text-sm text-gray-600 mb-2">
+              <div className="bg-[#f5f5f5] p-3 md:p-4 rounded-lg border-l-4 border-[#f57c00]">
+                <p className="text-xs md:text-sm text-gray-600 mb-2">
                   <strong>Description:</strong> {selectedProduct.description}
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-xs md:text-sm text-gray-600">
                   <strong>Available Stock:</strong>{" "}
                   <span className={selectedProduct.stock > 0 ? "text-green-600" : "text-red-600"}>
                     {selectedProduct.stock} {selectedProduct.unit}
@@ -165,7 +165,7 @@ export default function Order() {
 
             {/* Quantity */}
             <div>
-              <label className="block text-sm font-semibold text-[#2d7d32] mb-2">
+              <label className="block text-xs md:text-sm font-semibold text-[#2d7d32] mb-2">
                 Quantity ({selectedProduct?.unit || "unit"}) *
               </label>
               <input
@@ -174,7 +174,7 @@ export default function Order() {
                 max={selectedProduct?.stock || 1}
                 value={quantity}
                 onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-[#2d7d32] focus:outline-none"
+                className="w-full px-3 md:px-4 py-2 text-sm md:text-base border-2 border-gray-300 rounded-lg focus:border-[#2d7d32] focus:outline-none"
                 required
               />
               {selectedProduct && (
@@ -186,7 +186,7 @@ export default function Order() {
 
             {/* Customer Name */}
             <div>
-              <label className="block text-sm font-semibold text-[#2d7d32] mb-2">
+              <label className="block text-xs md:text-sm font-semibold text-[#2d7d32] mb-2">
                 Your Name *
               </label>
               <input
@@ -194,14 +194,14 @@ export default function Order() {
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 placeholder="John Doe"
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-[#2d7d32] focus:outline-none"
+                className="w-full px-3 md:px-4 py-2 text-sm md:text-base border-2 border-gray-300 rounded-lg focus:border-[#2d7d32] focus:outline-none"
                 required
               />
             </div>
 
             {/* Customer Email */}
             <div>
-              <label className="block text-sm font-semibold text-[#2d7d32] mb-2">
+              <label className="block text-xs md:text-sm font-semibold text-[#2d7d32] mb-2">
                 Your Email *
               </label>
               <input
@@ -209,14 +209,14 @@ export default function Order() {
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
                 placeholder="john@example.com"
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-[#2d7d32] focus:outline-none"
+                className="w-full px-3 md:px-4 py-2 text-sm md:text-base border-2 border-gray-300 rounded-lg focus:border-[#2d7d32] focus:outline-none"
                 required
               />
             </div>
 
             {/* Customer Phone */}
             <div>
-              <label className="block text-sm font-semibold text-[#2d7d32] mb-2">
+              <label className="block text-xs md:text-sm font-semibold text-[#2d7d32] mb-2">
                 Your Phone Number *
               </label>
               <input
@@ -224,7 +224,7 @@ export default function Order() {
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
                 placeholder="+234 801 234 5678"
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-[#2d7d32] focus:outline-none"
+                className="w-full px-3 md:px-4 py-2 text-sm md:text-base border-2 border-gray-300 rounded-lg focus:border-[#2d7d32] focus:outline-none"
                 required
               />
             </div>
@@ -233,7 +233,7 @@ export default function Order() {
             <Button
               type="submit"
               disabled={isSubmitting || !selectedProduct}
-              className="w-full bg-[#f57c00] hover:bg-[#e67e22] text-white font-semibold py-3 text-lg"
+              className="w-full bg-[#f57c00] hover:bg-[#e67e22] text-white font-semibold py-2 md:py-3 text-sm md:text-base"
             >
               {isSubmitting ? (
                 <>

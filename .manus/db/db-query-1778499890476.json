@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE products SET description = 'Premium Ofada Rice - Rich in essential carbohydrates and minerals. Perfect for jollof rice, fried rice, and traditional rice dishes. Natural, preservative-free, and sourced directly from our farm. High in fiber and nutrients.' WHERE name = 'Ofada Rice'; UPDATE products SET description = 'Freshly Made Garri - High in dietary fiber and naturally fermented for optimal nutrition. Perfect for soups, swallows, and traditional meals. Rich in carbohydrates and minerals. Naturally processed without additives. Great for family meals and gatherings.' WHERE name = 'Freshly Made Garri';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3UeRxstiES4xKDc.root --database nCppAu7MjDPgSXW3LsnJg2 --execute UPDATE products SET description = 'Premium Ofada Rice - Rich in essential carbohydrates and minerals. Perfect for jollof rice, fried rice, and traditional rice dishes. Natural, preservative-free, and sourced directly from our farm. High in fiber and nutrients.' WHERE name = 'Ofada Rice'; UPDATE products SET description = 'Freshly Made Garri - High in dietary fiber and naturally fermented for optimal nutrition. Perfect for soups, swallows, and traditional meals. Rich in carbohydrates and minerals. Naturally processed without additives. Great for family meals and gatherings.' WHERE name = 'Freshly Made Garri';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 618
+}
