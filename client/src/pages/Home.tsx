@@ -174,11 +174,8 @@ export default function Home() {
                       </ul>
                     </div>
 
-                    <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
-                      <span className="text-lg md:text-xl font-bold text-[#2d7d32]">
-                        ₦{parseFloat(product.price).toLocaleString()} per {product.unit}
-                      </span>
-                      <span className={`text-xs md:text-sm font-semibold px-3 py-1 rounded-full w-fit ${
+                    <div className="flex justify-center mb-4">
+                      <span className={`text-xs md:text-sm font-semibold px-3 py-1 rounded-full ${
                         product.stock > 0 
                           ? "bg-green-100 text-green-800" 
                           : "bg-red-100 text-red-800"
