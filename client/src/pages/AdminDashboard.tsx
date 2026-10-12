@@ -16,7 +16,7 @@ export default function AdminDashboard() {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   // Queries
-  const { data: products, refetch: refetchProducts, isLoading: productsLoading } = trpc.products.list.useQuery();
+  const { data: products, refetch: refetchProducts, isLoading: productsLoading } = trpc.products.adminList.useQuery();
   const { data: orders, refetch: refetchOrders, isLoading: ordersLoading } = trpc.orders.list.useQuery();
 
   // Mutations

@@ -16,6 +16,9 @@ import {
   updateOrderStatus
 } from "./db";
 import { TRPCError } from "@trpc/server";
+import type { Product } from "../drizzle/schema";
+
+const toPublicProduct = ({ price: _price, stock: _stock, ...product }: Product) => product;
 
 // Helper to ensure user is admin
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -41,14 +44,20 @@ export const appRouter = router({
   // ===== PRODUCTS ROUTER =====
   products: router({
     list: publicProcedure.query(async () => {
-      return await getAllProducts();
+      const products = await getAllProducts();
+      return products.map(toPublicProduct);
     }),
 
     getById: publicProcedure
       .input(z.object({ id: z.number() }))
       .query(async ({ input }) => {
-        return await getProductById(input.id);
+        const product = await getProductById(input.id);
+        return product ? toPublicProduct(product) : undefined;
       }),
+
+    adminList: adminProcedure.query(async () => {
+      return await getAllProducts();
+    }),
 
     create: adminProcedure
       .input(z.object({
@@ -123,16 +132,27 @@ export const appRouter = router({
         customerEmail: z.string().email(),
         customerPhone: z.string().min(1),
         quantity: z.number().int().min(1),
-        totalPrice: z.string().regex(/^\d+(\.\d{1,2})?$/),
       }))
       .mutation(async ({ input }) => {
+        const product = await getProductById(input.productId);
+        if (!product) {
+          throw new TRPCError({ code: 'NOT_FOUND', message: 'Product not found' });
+        }
+        if (input.quantity > product.stock) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'This product is not currently available in the requested quantity',
+          });
+        }
+
+        const totalPrice = (parseFloat(product.price) * input.quantity).toFixed(2);
         const order = await createOrder({
           productId: input.productId,
           customerName: input.customerName,
           customerEmail: input.customerEmail,
           customerPhone: input.customerPhone,
           quantity: input.quantity,
-          totalPrice: input.totalPrice,
+          totalPrice,
         });
         if (!order) {
           throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to create order' });
@@ -142,7 +162,7 @@ export const appRouter = router({
         try {
           await notifyOwner({
             title: `New Order #${order.id} from ${input.customerName}`,
-            content: `Customer ${input.customerName} (${input.customerPhone}) ordered ${input.quantity} unit(s). Total: NGN ${input.totalPrice}. Check the admin dashboard to confirm the order.`,
+            content: `Customer ${input.customerName} (${input.customerPhone}) ordered ${input.quantity} unit(s). Total: NGN ${totalPrice}. Check the admin dashboard to confirm the order.`,
           });
         } catch (error) {
           console.error('[Notification] Failed to notify owner:', error);

@@ -42,6 +42,7 @@ export const products = mysqlTable("products", {
 
 export type Product = typeof products.$inferSelect;
 export type InsertProduct = typeof products.$inferInsert;
+export type PublicProduct = Omit<Product, "price" | "stock">;
 
 /**
  * Orders table for storing customer orders
