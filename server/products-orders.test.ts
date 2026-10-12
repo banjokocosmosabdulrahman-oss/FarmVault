@@ -52,6 +52,10 @@ describe("Products Router", () => {
   it("should list products (public access)", async () => {
     const products = await publicCaller.products.list();
     expect(Array.isArray(products)).toBe(true);
+    products.forEach((product) => {
+      expect(product).not.toHaveProperty("price");
+      expect(product).not.toHaveProperty("stock");
+    });
   });
 
   it("should create a product (admin only)", async () => {
@@ -112,26 +116,35 @@ describe("Products Router", () => {
     const product = await publicCaller.products.getById({ id: createdProductId });
     expect(product).toBeDefined();
     expect(product?.id).toBe(createdProductId);
+    expect(product).not.toHaveProperty("price");
+    expect(product).not.toHaveProperty("stock");
   });
 });
 
 describe("Orders Router", () => {
   let adminCaller: ReturnType<typeof appRouter.createCaller>;
   let publicCaller: ReturnType<typeof appRouter.createCaller>;
+  let testProductId = 0;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     adminCaller = appRouter.createCaller(createAdminContext());
     publicCaller = appRouter.createCaller(createPublicContext());
+    const products = await adminCaller.products.adminList();
+    testProductId = products[0]?.id ?? 0;
   });
 
   it("should create an order (public access)", async () => {
+    if (testProductId === 0) {
+      console.warn("Skipping order creation test - no products found");
+      return;
+    }
+
     const order = await publicCaller.orders.create({
-      productId: 1,
+      productId: testProductId,
       customerName: "John Doe",
       customerEmail: "john@example.com",
       customerPhone: "+234 801 234 5678",
       quantity: 5,
-      totalPrice: "25000.00",
     });
 
     expect(order).toBeDefined();
@@ -179,7 +192,6 @@ describe("Orders Router", () => {
         customerEmail: "invalid-email",
         customerPhone: "+234 801 234 5678",
         quantity: 5,
-        totalPrice: "25000.00",
       });
       expect.fail("Should have thrown validation error");
     } catch (error: any) {

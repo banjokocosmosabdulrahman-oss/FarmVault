@@ -5,12 +5,10 @@ import { Card } from "@/components/ui/card";
 import { Loader2, MessageCircle, Phone, Mail, ShoppingBasket } from "lucide-react";
 import { useLocation } from "wouter";
 import Testimonials from "./Testimonials";
-import type { Product } from "../../../drizzle/schema";
 
 export default function Home() {
   const [, setLocation] = useLocation();
   const { data: products, isLoading } = trpc.products.list.useQuery();
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -24,9 +22,8 @@ export default function Home() {
     }
   }, []);
 
-  const handleOrderClick = (product: Product) => {
-    setSelectedProduct(product);
-    setLocation("/order?productId=" + product.id);
+  const handleOrderClick = (productId: number) => {
+    setLocation("/order?productId=" + productId);
   };
 
   return (
@@ -174,18 +171,8 @@ export default function Home() {
                       </ul>
                     </div>
 
-                    <div className="flex justify-center mb-4">
-                      <span className={`text-xs md:text-sm font-semibold px-3 py-1 rounded-full ${
-                        product.stock > 0 
-                          ? "bg-green-100 text-green-800" 
-                          : "bg-red-100 text-red-800"
-                      }`}>
-                        {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
-                      </span>
-                    </div>
                     <Button
-                      onClick={() => handleOrderClick(product)}
-                      disabled={product.stock === 0}
+                      onClick={() => handleOrderClick(product.id)}
                       className="w-full bg-[#f57c00] hover:bg-[#e67e22] text-white font-semibold text-sm md:text-base py-2 md:py-3"
                     >
                       Order Now
@@ -210,7 +197,7 @@ export default function Home() {
 
           <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center mb-6 md:mb-8">
             <a
-              href="https://wa.me/2348168967790?text=Hello%20Farm%20Vault!%20I'm%20interested%20in%20your%20products.%20Please%20send%20me%20the%20price%20list."
+              href="https://wa.me/2348168967790?text=Hello%20Farm%20Vault!%20I'm%20interested%20in%20your%20products."
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 p-4 md:p-6 bg-white/10 rounded-lg hover:bg-white/20 transition hover:scale-105"

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Loader2, ArrowLeft, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
-import type { Product } from "../../../drizzle/schema";
+import type { PublicProduct } from "../../../drizzle/schema";
 
 export default function Order() {
   const [, setLocation] = useLocation();
@@ -16,7 +16,7 @@ export default function Order() {
   const { data: products } = trpc.products.list.useQuery();
   const createOrderMutation = trpc.orders.create.useMutation();
 
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<PublicProduct | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
@@ -45,8 +45,8 @@ export default function Order() {
       return;
     }
 
-    if (quantity <= 0 || quantity > selectedProduct.stock) {
-      toast.error(`Please enter a valid quantity (1-${selectedProduct.stock})`);
+    if (quantity <= 0) {
+      toast.error("Please enter a valid quantity");
       return;
     }
 
@@ -68,15 +68,12 @@ export default function Order() {
     setIsSubmitting(true);
 
     try {
-      const totalPrice = (parseFloat(selectedProduct.price) * quantity).toFixed(2);
-
       await createOrderMutation.mutateAsync({
         productId: selectedProduct.id,
         customerName,
         customerEmail,
         customerPhone,
         quantity,
-        totalPrice,
       });
 
       setOrderSuccess(true);
@@ -142,7 +139,7 @@ export default function Order() {
                 <option value="">-- Choose a product --</option>
                 {products?.map((product) => (
                   <option key={product.id} value={product.id}>
-                    {product.name} - ₦{parseFloat(product.price).toLocaleString()} per {product.unit}
+                    {product.name} ({product.unit})
                   </option>
                 ))}
               </select>
@@ -153,12 +150,6 @@ export default function Order() {
               <div className="bg-[#f5f5f5] p-3 md:p-4 rounded-lg border-l-4 border-[#f57c00]">
                 <p className="text-xs md:text-sm text-gray-600 mb-2">
                   <strong>Description:</strong> {selectedProduct.description}
-                </p>
-                <p className="text-xs md:text-sm text-gray-600">
-                  <strong>Available Stock:</strong>{" "}
-                  <span className={selectedProduct.stock > 0 ? "text-green-600" : "text-red-600"}>
-                    {selectedProduct.stock} {selectedProduct.unit}
-                  </span>
                 </p>
               </div>
             )}
@@ -171,17 +162,11 @@ export default function Order() {
               <input
                 type="number"
                 min="1"
-                max={selectedProduct?.stock || 1}
                 value={quantity}
                 onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                 className="w-full px-3 md:px-4 py-2 text-sm md:text-base border-2 border-gray-300 rounded-lg focus:border-[#2d7d32] focus:outline-none"
                 required
               />
-              {selectedProduct && (
-                <p className="text-xs text-gray-500 mt-1">
-                  Total: ₦{(parseFloat(selectedProduct.price) * quantity).toLocaleString()}
-                </p>
-              )}
             </div>
 
             {/* Customer Name */}

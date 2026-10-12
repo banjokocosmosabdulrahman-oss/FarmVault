@@ -1,11 +1,9 @@
-import { Star } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 interface Testimonial {
   name: string;
   role: string;
   content: string;
-  rating: number;
   avatar: string;
 }
 
@@ -14,21 +12,18 @@ const testimonials: Testimonial[] = [
     name: "Adekunle Okafor",
     role: "Home Chef",
     content: "The Ofada Rice from Farm Vault is absolutely premium quality! Perfect for traditional rice dishes and soups. Highly recommended!",
-    rating: 5,
     avatar: "🧑‍🍳",
   },
   {
     name: "Chioma Nwosu",
     role: "Restaurant Owner",
     content: "I've been sourcing Garri from Farm Vault for 6 months now. Consistent quality, fresh products, and excellent customer service.",
-    rating: 5,
     avatar: "👩‍💼",
   },
   {
     name: "Bayo Adeyemi",
     role: "Family Provider",
     content: "Farm Vault delivers exactly what they promise - natural taste from the soil. My family loves the products!",
-    rating: 5,
     avatar: "👨‍👩‍👧‍👦",
   },
 ];
@@ -57,16 +52,6 @@ export default function Testimonials() {
                   </h3>
                   <p className="text-xs md:text-sm text-gray-500">{testimonial.role}</p>
                 </div>
-              </div>
-
-              <div className="flex gap-1 mb-3">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star
-                    key={i}
-                    size={16}
-                    className="fill-[#f57c00] text-[#f57c00]"
-                  />
-                ))}
               </div>
 
               <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
