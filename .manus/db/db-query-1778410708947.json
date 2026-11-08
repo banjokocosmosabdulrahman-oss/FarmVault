@@ -1,9 +1,0 @@
-{
-  "query": "INSERT INTO products (name, description, price, unit, imageUrl, stock) VALUES ('Test Rice', 'Premium quality white rice, perfect for everyday cooking. Rich in carbohydrates and essential nutrients. Ideal for jollof rice, fried rice, and traditional rice dishes.', '8500', 'kg', '/manus-storage/test-rice_4a0217cc.jpg', 50);",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3UeRxstiES4xKDc.root --database nCppAu7MjDPgSXW3LsnJg2 --execute INSERT INTO products (name, description, price, unit, imageUrl, stock) VALUES ('Test Rice', 'Premium quality white rice, perfect for everyday cooking. Rich in carbohydrates and essential nutrients. Ideal for jollof rice, fried rice, and traditional rice dishes.', '8500', 'kg', '/manus-storage/test-rice_4a0217cc.jpg', 50);",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 1298
-}
